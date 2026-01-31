@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Secretária Inteligente: automação no WhatsApp para responder clientes, triagem, agendamentos, lembretes e integrações com agenda." />
+  <meta name="robots" content="index,follow" />
+
+  <title>Secretária Inteligente — Atendimento 24/7 no WhatsApp</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Secretária Inteligente — Atendimento 24/7 no WhatsApp" />
+  <meta property="og:description" content="Respostas automáticas, triagem, agendamento e lembretes. Integrações com agenda e CRM. Foco em conformidade e LGPD." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- Favicon (opcional) -->
+  <!-- <link rel="icon" href="/favicon.ico" /> -->
+
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --panel:#0f172a;
+      --card:#111b33;
+      --text:#e5e7eb;
+      --muted:#aab2c0;
+      --brand:#22c55e;
+      --brand2:#60a5fa;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 16px 50px rgba(0,0,0,.35);
+      --radius:18px;
+      --max: 1120px;
+      --pad: 22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(900px 500px at 20% -10%, rgba(96,165,250,.22), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(34,197,94,.20), transparent 55%),
+        radial-gradient(1200px 700px at 50% 110%, rgba(96,165,250,.12), transparent 50%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad)}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(11,15,23,.72);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; text-decoration:none;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 10px 25px rgba(34,197,94,.18);
+      flex:0 0 auto;
+    }
+    .navlinks{display:flex; gap:18px; flex-wrap:wrap; align-items:center}
+    .navlinks a{
+      text-decoration:none; color:var(--muted);
+      font-size:14px;
+    }
+    .navlinks a:hover{color:var(--text)}
+    .cta{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      text-decoration:none;
+      font-weight:650;
+      font-size:14px;
+      background: rgba(255,255,255,.03);
+    }
+    .btn:hover{transform:translateY(-1px); transition:.15s ease; border-color:rgba(255,255,255,.22)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(96,165,250,.90));
+      border:none;
+      color:#081018;
+      box-shadow: 0 12px 35px rgba(34,197,94,.18);
+    }
+    .btn.primary:hover{filter:saturate(1.05); transform:translateY(-1px)}
+    .hero{
+      padding:54px 0 22px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    .panel{
+      background:rgba(15,23,42,.72);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:44px;
+      line-height:1.06;
+      letter-spacing:-.7px;
+    }
+    .lead{
+      color:var(--muted);
+      font-size:17px;
+      margin:0 0 18px;
+    }
+    .badges{
+      display:flex; gap:10px; flex-wrap:wrap; margin: 16px 0 22px;
+    }
+    .badge{
+      font-size:12px; color:rgba(229,231,235,.92);
+      background: rgba(255,255,255,.05);
+      border:1px solid var(--border);
+      padding:7px 10px; border-radius:999px;
+    }
+    .kpis{
+      display:grid; grid-template-columns: repeat(3, 1fr);
+      gap:10px; margin-top:18px;
+    }
+    .kpi{
+      background: rgba(255,255,255,.03);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:12px;
+    }
+    .kpi strong{display:block; font-size:18px}
+    .kpi span{display:block; font-size:12px; color:var(--muted)}
+    .mini{
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .card{
+      background: rgba(17,27,51,.72);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+    }
+    .card h3{margin:0 0 6px; font-size:16px}
+    .card p{margin:0; color:var(--muted); font-size:13px}
+    section{padding:20px 0}
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:18px; flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .section-title h2{
+      margin:0; font-size:22px;
+    }
+    .section-title p{
+      margin:0; color:var(--muted); font-size:14px; max-width:620px;
+    }
+    .cards3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    ul{margin:10px 0 0; padding-left:18px; color:var(--muted)}
+    li{margin:6px 0}
+    .pricing{
+      display:grid; grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    .price{
+      background: rgba(17,27,51,.72);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .price .tag{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      font-size:12px;
+      width:max-content;
+    }
+    .price h3{margin:0}
+    .price .value{font-size:28px; font-weight:900}
+    .price .sub{color:var(--muted); font-size:13px}
+    .price .btn{margin-top:auto}
+    .faq details{
+      background: rgba(17,27,51,.72);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:12px 14px;
+      margin:10px 0;
+    }
+    .faq summary{
+      cursor:pointer;
+      font-weight:700;
+      list-style:none;
+    }
+    .faq summary::-webkit-details-marker{display:none}
+    .faq p{color:var(--muted); margin:8px 0 0; font-size:14px}
+    .footer{
+      margin-top:30px;
+      padding:26px 0 40px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .footgrid{
+      display:grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap:14px;
+    }
+    .footgrid a{color:var(--muted); text-decoration:none}
+    .footgrid a:hover{color:var(--text)}
+    .legal-links{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px}
+    .note{
+      font-size:12px; color:rgba(170,178,192,.90);
+      margin-top:10px;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      font-size:12px;
+      color:rgba(229,231,235,.92);
+    }
+    .pill b{color:var(--text)}
+    .sr{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;}
+    @media (max-width: 940px){
+      .grid{grid-template-columns:1fr}
+      h1{font-size:36px}
+      .cards3, .pricing{grid-template-columns:1fr}
+      .kpis{grid-template-columns:1fr}
+      .footgrid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="nav" role="navigation" aria-label="Navegação principal">
+        <a class="brand" href="#top">
+          <span class="logo" aria-hidden="true"></span>
+          <span>Secretária Inteligente</span>
+        </a>
+
+        <nav class="navlinks" aria-label="Links">
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#planos">Planos</a>
+          <a href="#integracoes">Integrações</a>
+          <a href="#seguranca">Segurança</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contato">Contato</a>
+        </nav>
+
+        <div class="cta">
+          <!-- Troque por seu link real do WhatsApp / agendamento -->
+          <a class="btn" href="#contato">Agendar demo</a>
+          <a class="btn primary" href="https://wa.me/55SEUNUMERO?text=Quero%20ver%20a%20Secret%C3%A1ria%20Inteligente" rel="noopener">
+            Falar no WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    <!-- HERO -->
+    <section class="hero" aria-label="Apresentação">
+      <div class="grid">
+        <div class="panel">
+          <h1>Atendimento 24/7 no WhatsApp, com cara de gente.</h1>
+          <p class="lead">
+            A <b>Secretária Inteligente</b> responde clientes, faz triagem, agenda horários, manda lembretes e organiza seu fluxo
+            — com handoff para humano quando necessário e foco em conformidade (LGPD, opt-in e transparência).
+          </p>
+
+          <div class="badges" aria-label="Destaques">
+            <span class="badge">Respostas automáticas</span>
+            <span class="badge">Agendamento & lembretes</span>
+            <span class="badge">Triagem inteligente</span>
+            <span class="badge">Integrações (Agenda/CRM/n8n)</span>
+            <span class="badge">Políticas & páginas legais</span>
+          </div>
+
+          <div class="cta" style="margin-top:10px">
+            <a class="btn primary" href="#planos">Ver planos</a>
+            <a class="btn" href="#como-funciona">Entender como funciona</a>
+          </div>
+
+          <div class="kpis" aria-label="Indicadores">
+            <div class="kpi">
+              <strong>+Agilidade</strong>
+              <span>Resposta imediata e consistente</span>
+            </div>
+            <div class="kpi">
+              <strong>+Conversão</strong>
+              <span>Triagem + follow-up automático</span>
+            </div>
+            <div class="kpi">
+              <strong>+Organização</strong>
+              <span>Agenda e registros centralizados</span>
+            </div>
+          </div>
+
+          <p class="note">
+            * Você controla o tom de voz, horários, limites do bot, regras de opt-in e quando escalar para atendimento humano.
+          </p>
+        </div>
+
+        <aside class="mini" aria-label="Resumo rápido">
+          <div class="card">
+            <h3>O que ela faz</h3>
+            <p>Capta lead, responde dúvidas frequentes, qualifica, encaminha e agenda automaticamente.</p>
+          </div>
+          <div class="card">
+            <h3>Para quem</h3>
+            <p>Clínicas, consultórios, estética, serviços locais, delivery e negócios que dependem de WhatsApp.</p>
+          </div>
+          <div class="card">
+            <h3>Compliance</h3>
+            <p>Transparência, consentimento (opt-in) e páginas públicas: Privacidade, Termos e Exclusão de Dados.</p>
+          </div>
+          <div class="card">
+            <h3>Implantação</h3>
+            <p>Setup rápido + personalização de fluxos. Evolui para integrações avançadas conforme necessidade.</p>
+          </div>
+
+          <div class="pill" title="Atalho para páginas legais">
+            <span aria-hidden="true">📄</span>
+            <span><b>Legal:</b> <a href="/privacy.html">Privacidade</a> · <a href="/terms.html">Termos</a> · <a href="/data-deletion.html">Exclusão</a></span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section id="como-funciona" aria-label="Como funciona">
+      <div class="section-title">
+        <h2>Como funciona</h2>
+        <p>Você define o fluxo. A Secretária Inteligente executa: conversa, registra, agenda, lembra e escala.</p>
+      </div>
+
+      <div class="cards3">
+        <div class="card">
+          <h3>1) Entrada</h3>
+          <p>Recebe mensagens, identifica intenção (preço, agendamento, dúvidas, urgência) e faz as perguntas certas.</p>
+          <ul>
+            <li>Boas-vindas e triagem</li>
+            <li>Coleta de dados mínima (quando necessário)</li>
+            <li>Roteamento por setor/tema</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>2) Ação</h3>
+          <p>Executa tarefas: agendar, confirmar, enviar orientações, gerar resumo para equipe e disparar lembretes.</p>
+          <ul>
+            <li>Agendamento/remoção</li>
+            <li>Lembretes automáticos</li>
+            <li>Respostas padronizadas</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>3) Escala</h3>
+          <p>Quando precisa, encaminha para humano com contexto (resumo + dados coletados) sem perder o fio da conversa.</p>
+          <ul>
+            <li>Handoff para atendimento</li>
+            <li>Registro de histórico</li>
+            <li>Regras por horário</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTEGRAÇÕES -->
+    <section id="integracoes" aria-label="Integrações">
+      <div class="section-title">
+        <h2>Integrações</h2>
+        <p>Conecte com suas ferramentas. Comece simples e cresça para automações mais avançadas.</p>
+      </div>
+
+      <div class="cards3">
+        <div class="card">
+          <h3>Agenda</h3>
+          <p>Google Calendar / calendários internos (conforme sua arquitetura) para criar e confirmar horários.</p>
+        </div>
+        <div class="card">
+          <h3>n8n / Webhooks</h3>
+          <p>Integrações flexíveis: CRM, planilhas, e-mail, PDFs, pipelines e notificações.</p>
+        </div>
+        <div class="card">
+          <h3>CRM / Atendimento</h3>
+          <p>Registro de lead, tags, etapas e repasse para equipe (SLA e controle de qualidade).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANOS -->
+    <section id="planos" aria-label="Planos">
+      <div class="section-title">
+        <h2>Planos</h2>
+        <p>Modelos sugeridos (você pode ajustar preços e entregáveis). Ideal para vender como serviço recorrente.</p>
+      </div>
+
+      <div class="pricing">
+        <div class="price">
+          <span class="tag">Bronze</span>
+          <h3>Essencial</h3>
+          <div class="value">R$ 299/mês</div>
+          <div class="sub">Setup: R$ 799 (exemplo)</div>
+          <ul>
+            <li>Boas-vindas + FAQ</li>
+            <li>Triagem básica</li>
+            <li>Escala para humano</li>
+            <li>Páginas legais no site</li>
+          </ul>
+          <a class="btn" href="#contato">Quero o Bronze</a>
+        </div>
+
+        <div class="price" style="border-color:rgba(96,165,250,.35)">
+          <span class="tag">Prata</span>
+          <h3>Profissional</h3>
+          <div class="value">R$ 399/mês</div>
+          <div class="sub">Setup: R$ 999 (exemplo)</div>
+          <ul>
+            <li>Triagem + qualificação</li>
+            <li>Agendamento (integração)</li>
+            <li>Lembretes</li>
+            <li>Relatórios básicos</li>
+          </ul>
+          <a class="btn primary" href="#contato">Quero o Prata</a>
+        </div>
+
+        <div class="price">
+          <span class="tag">Ouro</span>
+          <h3>Avançado</h3>
+          <div class="value">R$ 599/mês</div>
+          <div class="sub">Setup: R$ 1.299 (exemplo)</div>
+          <ul>
+            <li>Fluxos personalizados</li>
+            <li>n8n + automações extras</li>
+            <li>Logs/observabilidade</li>
+            <li>Add-ons mensais</li>
+          </ul>
+          <a class="btn" href="#contato">Quero o Ouro</a>
+        </div>
+      </div>
+
+      <p class="note">
+        * Valores ilustrativos. Você pode subir o ticket (Platina/Diamante) com integrações, múltiplas unidades e automações adicionais.
+      </p>
+    </section>
+
+    <!-- SEGURANÇA / LGPD -->
+    <section id="seguranca" aria-label="Segurança e LGPD">
+      <div class="section-title">
+        <h2>Segurança, privacidade e transparência</h2>
+        <p>Políticas claras, coleta mínima e rotinas de exclusão de dados. O cliente deve saber o que acontece com as informações.</p>
+      </div>
+
+      <div class="cards3">
+        <div class="card">
+          <h3>Coleta mínima</h3>
+          <p>Captura só o necessário para agendar/atender. Você define o que entra e por quanto tempo fica retido.</p>
+        </div>
+        <div class="card">
+          <h3>Controle e auditoria</h3>
+          <p>Logs de conversa/ações (quando aplicável) e limites por horário, equipe e contexto.</p>
+        </div>
+        <div class="card">
+          <h3>Exclusão de dados</h3>
+          <p>Canal claro para solicitar deleção e instruções públicas no site (<a href="/data-deletion.html">Exclusão de Dados</a>).</p>
+        </div>
+      </div>
+
+      <p class="note">
+        Dica prática: mantenha as páginas <a href="/privacy.html">Privacidade</a>, <a href="/terms.html">Termos</a> e <a href="/data-deletion.html">Exclusão</a>
+        públicas, indexáveis e retornando HTTP 200.
+      </p>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq" aria-label="Perguntas frequentes">
+      <div class="section-title">
+        <h2>FAQ</h2>
+        <p>As dúvidas que mais travam implantação e compliance — respondidas de forma direta.</p>
+      </div>
+
+      <details>
+        <summary>Isso substitui minha equipe?</summary>
+        <p>Não. A ideia é automatizar o repetitivo e escalar para humano quando há exceção, negociação, urgência ou caso sensível.</p>
+      </details>
+
+      <details>
+        <summary>Como vocês lidam com consentimento (opt-in) no WhatsApp?</summary>
+        <p>O ideal é trabalhar com opt-in verificável e mensagens coerentes com a expectativa do usuário. O fluxo pode registrar quando/como o cliente autorizou o contato (ex.: formulário, QR, site, atendimento anterior).</p>
+      </details>
+
+      <details>
+        <summary>Vocês têm páginas exigidas pela Meta?</summary>
+        <p>Sim: Política de Privacidade, Termos e instruções de Exclusão de Dados ficam em URLs públicas. (Links no rodapé e no atalho “Legal”.)</p>
+      </details>
+
+      <details>
+        <summary>Como peço exclusão dos meus dados?</summary>
+        <p>O site mantém uma página dedicada com instruções e canal de solicitação: <a href="/data-deletion.html">Exclusão de Dados</a>.</p>
+      </details>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" aria-label="Contato">
+      <div class="section-title">
+        <h2>Contato / Demo</h2>
+        <p>Coloque aqui seus canais reais (WhatsApp, e-mail, Calendly/agenda). Deixe isso muito fácil.</p>
+      </div>
+
+      <div class="cards3">
+        <div class="card">
+          <h3>WhatsApp</h3>
+          <p>
+            <a class="btn primary" href="https://wa.me/55SEUNUMERO?text=Quero%20ver%20a%20Secret%C3%A1ria%20Inteligente" rel="noopener">
+              Iniciar conversa
+            </a>
+          </p>
+        </div>
+        <div class="card">
+          <h3>E-mail</h3>
+          <p>
+            <a href="mailto:contato@seudominio.com">contato@seudominio.com</a><br />
+            <span class="note">Troque para seu e-mail real.</span>
+          </p>
+        </div>
+        <div class="card">
+          <h3>Agendar</h3>
+          <p>
+            <a class="btn" href="https://seu-link-de-agendamento.com" rel="noopener">Abrir agenda</a><br />
+            <span class="note">Pode ser Calendly/Google Agenda etc.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" aria-label="Rodapé">
+      <div class="footgrid">
+        <div>
+          <strong style="color:var(--text)">Secretária Inteligente</strong><br />
+          Automação de atendimento via WhatsApp: triagem, agendamento, lembretes e integrações.
+          <div class="legal-links">
+            <a href="/privacy.html">Política de Privacidade</a>
+            <a href="/terms.html">Termos de Uso</a>
+            <a href="/data-deletion.html">Exclusão de Dados</a>
+          </div>
+          <div class="note">
+            © <span id="y"></span> • Todos os direitos reservados.
+          </div>
+        </div>
+
+        <div>
+          <strong style="color:var(--text)">Empresa</strong><br />
+          <a href="#como-funciona">Como funciona</a><br />
+          <a href="#planos">Planos</a><br />
+          <a href="#integracoes">Integrações</a><br />
+          <a href="#seguranca">Segurança</a><br />
+        </div>
+
+        <div>
+          <strong style="color:var(--text)">Contato & Privacidade</strong><br />
+          Suporte: <a href="mailto:contato@seudominio.com">contato@seudominio.com</a><br />
+          Encarregado (DPO): <a href="mailto:privacidade@seudominio.com">privacidade@seudominio.com</a><br />
+          <div class="note">
+            (Ajuste para seu cenário real e obrigações LGPD.)
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- JSON-LD (SEO + Rich Results básicos) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Secretária Inteligente",
+    "description": "Automação no WhatsApp: respostas, triagem, agendamento e lembretes.",
+    "inLanguage": "pt-BR"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Secretária Inteligente",
+    "email": "contato@seudominio.com"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Isso substitui minha equipe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Não. Automatiza o repetitivo e escala para humano quando necessário."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como vocês lidam com consentimento (opt-in) no WhatsApp?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Trabalhamos com opt-in verificável e registro do momento/forma de consentimento, conforme sua operação."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como peço exclusão dos meus dados?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use a página pública de exclusão de dados com instruções e canal de solicitação."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
